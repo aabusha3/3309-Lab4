@@ -9,4 +9,4 @@
 - Visit http://localhost:4200/ in your browser to see application
 
 ### Setup database
-- Reuse database from assignment 3 submission
+- Use dump files
