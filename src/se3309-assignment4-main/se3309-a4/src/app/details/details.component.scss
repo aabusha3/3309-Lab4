@@ -1,0 +1,409 @@
+.details__content {
+  padding: 24px;
+  background-color: white;
+  border-radius: 12px;
+  margin: 0 24px;
+
+  .graphBtn {
+    position: absolute;
+    top: 0;
+    right: 12px;
+    border: none;
+    background-color: #ecf0f1;
+    border-radius: 12px;
+    padding: 4px 12px;
+    box-shadow: none !important;
+    font-size: 16px !important;
+    width: auto !important;
+    height: auto !important;
+  }
+
+  .orgDetails {
+    h1 {
+      margin-left: 24px;
+    }
+
+    .orgMain {
+      display: flex;
+      justify-content: space-around;
+
+      .orgTeams {
+        max-height: 80vh;
+        overflow-y: scroll;
+        padding: 12px;
+        width: 20%;
+
+        table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0 0.5em;
+
+          .headers {
+            font-size: 1.4rem;
+            background-color: white;
+            border-radius: 12px;
+            position: sticky;
+            top: 10px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+            th {
+              border-radius: 12px;
+              padding: 12px;
+              text-align: left;
+            }
+          }
+          tr {
+            margin-bottom: 12px;
+            cursor: pointer;
+
+            &:hover:not(.headers) {
+              background-color: #ecf0f1;
+            }
+
+            td {
+              padding: 12px;
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+
+      .orgAnnouncements {
+        width: 80%;
+        padding: 0 24px;
+        text-align: center;
+        position: relative;
+
+        button.create {
+          position: absolute;
+          right: 24px;
+          top: 0;
+          border: none;
+          outline: none;
+          background-color: #fafafa;
+          font-size: 18px;
+          padding: 8px;
+          border-radius: 12px;
+          box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+        }
+
+        ul {
+          margin-top: 24px;
+          max-height: calc(80vh - 57px);
+          overflow-y: scroll;
+          margin-bottom: 0 !important;
+          text-align: left;
+          border: 1px solid #ecf0f1;
+          border-radius: 12px;
+          padding: 24px;
+
+          li {
+            list-style: none;
+            position: relative;
+            border: 1px solid #ecf0f1;
+            border-radius: 12px;
+            padding: 24px;
+            overflow-x: hidden;
+
+            &:not(:last-child) {
+              margin-bottom: 24px;
+            }
+
+            h4 {
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              width: calc(100% - 100px);
+            }
+            .author {
+              display: block;
+              font-size: 14px;
+              margin-bottom: 12px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              white-space: nowrap;
+              width: 100%;
+            }
+            .body {
+              display: block;
+              font-size: 18px;
+            }
+            .date {
+              display: block;
+              font-size: 14px;
+            }
+
+            button {
+              border: none;
+              position: absolute;
+              right: 24px;
+              top: 12px;
+              padding: 6px 16px;
+              border-radius: 12px;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .teamDetails {
+    text-align: center;
+
+    span {
+      font-size: 24px;
+      margin-top: -8px;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-around;
+
+      span {
+        font-size: 16px !important;
+      }
+    }
+
+    .playerList {
+      max-height: 70vh;
+      overflow-y: scroll;
+      margin-top: 12px;
+
+      table {
+        width: 100%;
+
+        .headers {
+          font-size: 1.4rem;
+          background-color: white;
+          position: sticky;
+          top: 0;
+          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+          th {
+            border-radius: 12px;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+          }
+        }
+        tr {
+          margin-bottom: 12px;
+
+          td {
+            padding: 12px;
+            font-size: 1rem;
+            text-align: left;
+          }
+        }
+      }
+    }
+
+
+  }
+
+  .matchDetails {
+    display: block;
+    position: relative;
+
+    .matchUp {
+      justify-content: center;
+      display: block;
+      font-size: 24px;
+      line-height: 36px;
+      text-align: center;
+      margin-bottom: 24px;
+
+      span {
+        font-weight: bold;
+        font-size: 36px;
+        margin: 8px;
+        display: block;
+
+        &.winner {
+          color: green;
+        }
+      }
+    }
+
+    .matchSpecifics {
+      display: block;
+      margin: auto;
+      font-size: 24px;
+      text-align: center;
+
+      span {
+        display: block;
+      }
+    }
+
+    .bets {
+      margin-top: 12px;
+      max-height: 70vh;
+      border: 1px solid #ecf0f1;
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+
+      .place {
+        margin: 24px;
+        border: 1px solid #ecf0f1;
+        border-radius: 12px;
+        padding: 24px;
+
+        button, input[type=submit], select {
+          border: none;
+          border-radius: 12px;
+          background-color: #ecf0f1;
+          box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+          width: 150px;
+          height: 50px;
+          font-size: 24px;
+        }
+
+        form {
+          margin: auto;
+          width: 50%;
+          display: flex;
+          justify-content: space-around;
+
+          input[type=text] {
+            border: none;
+            background-color: #fafafa;
+            padding: 12px;
+            border-radius: 12px;
+            outline: none;
+            width: 250px;
+          }
+        }
+      }
+
+      ul {
+        width: calc(100% - 8px);
+        padding: 0;
+        display: grid;
+        gap: 10px;
+        grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+        list-style-type: none;
+        justify-content: center;
+        align-content: center;
+
+        li {
+          text-align: center;
+          padding: 24px;
+          margin: 24px auto;
+          width: 250px;
+          height: auto;
+          background-color: transparent;
+          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+          border-radius: 18px;
+          transition: all 1s ease;
+          font-size: small;
+
+          span {
+            display: block;
+            font-size: 24px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+        }
+      }
+    }
+
+    form {
+      display: flex;
+
+      input[type=submit] {
+        margin-left: 12px;
+      }
+    }
+
+    button, input[type=submit], select {
+      border: none;
+      border-radius: 12px;
+      background-color: #ecf0f1;
+      box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+      width: 150px;
+      height: 50px;
+      font-size: 24px;
+    }
+
+    .addWinner {
+      position: absolute;
+      right: 12px;
+      top: 48px;
+      font-size: 16px;
+      padding: 4px 12px;
+      width: auto !important;
+      height: auto !important;
+      box-shadow: none !important;
+    }
+
+  }
+
+  .tournamentDetails {
+    position: relative;
+
+    h1 {
+      margin-left: 24px;
+    }
+
+    .tournamentMain {
+      display: flex;
+      justify-content: space-around;
+
+      .tournamentLeaderboard, .matches {
+        max-height: 80vh;
+        overflow-y: scroll;
+        padding: 12px;
+        width: 20%;
+
+        table {
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0 0.5em;
+
+          .headers {
+            font-size: 1rem;
+            background-color: white;
+            border-radius: 12px;
+            position: sticky;
+            top: 10px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+            th {
+              border-radius: 12px;
+              padding: 12px;
+              text-align: left;
+              white-space: nowrap;
+            }
+            th:not(.leaderboard) {
+              border-radius: 0;
+            }
+          }
+          tr {
+            margin-bottom: 12px;
+            cursor: pointer;
+
+            &:hover:not(.headers) {
+              background-color: #ecf0f1;
+            }
+
+            td {
+              padding: 12px;
+              font-size: 0.8rem;
+            }
+          }
+        }
+      }
+
+      .matches {
+        width: 80%;
+      }
+
+      .ticketGraph {
+        width: 0;
+      }
+    }
+  }
+}

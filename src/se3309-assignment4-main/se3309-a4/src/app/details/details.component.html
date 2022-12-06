@@ -1,0 +1,161 @@
+<div class="details__content">
+
+  <div *ngIf="data?.type === 'org'" class="orgDetails">
+    <h1>{{data?.details?.name}}</h1>
+
+    <div class="orgMain">
+
+      <div class="orgTeams" *ngIf="orgTeams.length">
+        <table>
+          <tr class="headers">
+            <th>Teams</th>
+          </tr>
+
+          <tr *ngFor="let team of orgTeams" (click)="this.data = { type: 'team', details: team }; getTeamPlayers('Org')">
+            <td>{{team?.team_name}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="orgAnnouncements">
+        <h3>Announcements</h3>
+        <button class="create" (click)="createAnnouncement()" *ngIf="user?.access_level > 1">Create new announcement</button>
+
+        <ul *ngIf="getFormattedAnnouncements()?.length">
+          <li *ngFor="let announcement of getFormattedAnnouncements()">
+            <button *ngIf="user?.access_level > 1" (click)="deleteAnnouncement(announcement)">Delete</button>
+            <h4>{{announcement?.title}}</h4>
+            <span class="author">{{announcement?.author}}</span>
+            <span class="body">{{announcement?.body}}</span>
+            <span class="date">{{announcement?.creation_date}}</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div *ngIf="data?.type === 'match'" class="matchDetails">
+
+    <div class="matchUp">
+      <span [ngClass]="{'winner': data?.details?.winner === 1}">{{data?.details?.team1}}</span>
+      vs
+      <span [ngClass]="{'winner': data?.details?.winner === 2}">{{data?.details?.team2}}</span>
+    </div>
+
+    <button class="addWinner" [hidden]="user.access_level < 2 || data?.details?.winner > 0" [ngbPopover]="result" [autoClose]="false" placement="auto" #resultPopover="ngbPopover">Add Winner</button>
+    <button class="graphBtn" (click)="openPurchaseGraph()" *ngIf="user.access_level > 1">See Purcahse Details</button>
+
+    <ng-template #result>
+      <form (submit)="updateMatchOutcome($event, winner.value); resultPopover.close()">
+        <select #winner>
+          <option [value]="1">{{data?.details?.team1}}</option>
+          <option [value]="2">{{data?.details?.team2}}</option>
+        </select>
+        <input type="submit" value="Save">
+      </form>
+    </ng-template>
+
+    <div class="matchSpecifics">
+      <span>{{data?.details?.location}}</span>
+      <span>{{data?.details?.match_date.split('T')[0]}}</span>
+      <span *ngIf="data?.details?.tournament">{{data?.details?.tournament}}</span>
+    </div>
+
+    <div class="bets">
+      <div class="place" *ngIf="data?.details?.winner === 0 && user.access_level > 0 && !hasBet()">
+        <button *ngIf="!openBets" (click)="openBets = !openBets">Place bet</button>
+
+        <form *ngIf="openBets" (submit)="placeBet($event, team.value, amount.value); openBets = !openBets" #betForm>
+          <select #team>
+            <option [value]="data?.details?.team1">{{data?.details?.team1}}</option>
+            <option [value]="data?.details?.team2">{{data?.details?.team2}}</option>
+          </select>
+          <input type="text" placeholder="Amount" #amount>
+          <input type="submit" value="Place">
+        </form>
+      </div>
+
+      <h4>Bets</h4>
+      <ul *ngIf="bets.length">
+        <li *ngFor="let bet of bets">
+          <span>${{bet.amount}}</span>
+          <span>{{bet.team}}</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div *ngIf="data?.type === 'team'" class="teamDetails">
+    <h1>{{data?.details.team_name}}</h1>
+    <span>{{data?.details?.organization}}</span>
+    <div class="stats">
+      <span>{{data?.details?.wins}} Wins</span>
+      <span>{{data?.details?.losses}} Losses</span>
+    </div>
+
+    <h3>Players</h3>
+    <div class="playerList">
+      <table *ngIf="teamPlayers.length">
+        <tr class="headers">
+          <th>Name</th>
+          <th>Wins</th>
+          <th>Losses</th>
+        </tr>
+
+        <tr *ngFor="let player of teamPlayers">
+          <td>{{player?.name}}</td>
+          <td>{{player?.wins}}</td>
+          <td>{{player?.losses}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="data?.type === 'tournament'" class="tournamentDetails">
+    <h1>{{data?.details?.name}}</h1>
+
+    <div class="tournamentMain">
+
+      <button class="graphBtn" (click)="openPurchaseGraph()" *ngIf="user.access_level > 1">See Purcahse Details</button>
+
+      <div class="tournamentLeaderboard" *ngIf="leaderboard.length">
+        <table>
+          <tr class="headers">
+            <th class="leaderboard">Leaderboard</th>
+          </tr>
+
+          <tr *ngFor="let team of leaderboard" (click)="data = { type: 'team', details: team }; getTeamPlayers('Org')">
+            <td>{{team?.team_name}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="matches">
+        <table>
+          <tr class="headers">
+            <th>Match Date</th>
+            <th>Team 1</th>
+            <th>Team 2</th>
+            <th>Location</th>
+            <th>Tournament</th>
+            <th>Winner</th>
+          </tr>
+
+          <tr *ngFor="let match of tournamentMatches" (click)="data = { type: 'match', details: match }; getBets()">
+            <td>{{match.match_date.split('T')[0]}}</td>
+            <td>{{match?.team1}}</td>
+            <td>{{match?.team2}}</td>
+            <td>{{match?.location}}</td>
+            <td>{{match?.tournament}}</td>
+            <td>{{match?.winner === 1 ? match?.team1 : match?.winner === 2 ? match?.team2 : ''}}</td>
+          </tr>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>
